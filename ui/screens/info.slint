@@ -1,50 +1,131 @@
 import { Theme } from "../theme.slint";
 import { State } from "../state.slint";
+import { THelpScreen } from "../model.slint";
 
 
-component Info-title inherits Text {
-    font-size: 25px;
-    color: #c9c9c9;
-    font-weight: 900;
-}
+export component Info-Button {
+    callback clicked();
 
-component Info-Icon inherits Rectangle {
+    in property <string> text;
     in property <image> icon;
+    in property <color> base-color;
+    in property <color> text-color;
+
+    width: 160px;
+    height: self.width;
 
     Rectangle {
+        border-radius: 20px;
+        background: touch.has-hover ? root.base-color.brighter(0.25) : root.base-color;
         border-width: 5px;
-        border-radius: 10px;
-        // background: Theme.control.active;
-        // border-color: self.background.darker(0.25);
+        border-color: root.base-color.darker(0.5);
 
-        HorizontalLayout {
-            padding: 12px;
-            img := Image {
+        touch := TouchArea {
+            clicked => { root.clicked(); }
+        }
 
-                source: root.icon;
-                image-fit: fill;
-                colorize: #d3a3ff;
+        VerticalLayout {
+            padding: 20px;
+
+            VerticalLayout {
+                padding: 20px;
+
+                img := Image {
+                    source: root.icon;
+                    image-fit: contain;
+                    colorize: root.text-color;
+                }
+            }
+
+            Text {
+                horizontal-alignment: center;
+                height: self.preferred-height;
+                text: root.text;
+                font-size: 20px;
+                color: root.text-color;
+                font-weight: 900;
             }
         }
     }
 }
 
-component InfoDetail inherits Rectangle {
-    background: Theme.board.base;
-    border-radius: 20px;
+component Info-None inherits Rectangle {
+    VerticalLayout {
+        padding: 20px;
 
-    HorizontalLayout {
-        padding-left: 20px;
-        padding-right: self.padding-left;
-        alignment: space-between;
-        cross-axis-alignment: center;
+        Flickable {
+            width: 100%;
+            height: 100%;
 
-        @children
+            VerticalLayout {
+                spacing: 20px;
+                alignment: center;
+                cross-axis-alignment: center;
+
+                HorizontalLayout {
+                    spacing: 20px;
+
+                    private property <[{ title: string, icon: image }]> nav-items: [
+                        { title: "Guide", icon: @image-url("../assets/icons/gamepad-directional.svg") },
+                        { title: "Rules", icon: @image-url("../assets/icons/bolt.svg") },
+                    ];
+
+                    for elem[in] in nav-items: Info-Button {
+                        text: elem.title;
+                        icon: elem.icon;
+                        base-color: #00b0d3;
+                        text-color: #004a59;
+
+                        horizontal-stretch: 1;
+
+                        clicked => {
+                            if (in == 0) {
+                                State.help-screen = THelpScreen.Interface;
+                            } else {
+                                State.help-screen = THelpScreen.About;
+                            }
+                        }
+                    }
+                }
+
+                HorizontalLayout {
+                    spacing: 20px;
+
+                    private property <[{ title: string, icon: image }]> nav-items: [
+                        { title: "Interface", icon: @image-url("../assets/icons/layout-panel-left.svg") },
+                        { title: "About", icon: @image-url("../assets/icons/info.svg") },
+                    ];
+
+                    for elem[in] in nav-items: Info-Button {
+                        text: elem.title;
+                        icon: elem.icon;
+
+                        base-color: #d37800;
+                        text-color: #592e00;
+
+                        horizontal-stretch: 1;
+
+                        clicked => {
+                            if (in == 0) {
+                                State.help-screen = THelpScreen.Interface;
+                            } else {
+                                State.help-screen = THelpScreen.About;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-component InfoCard inherits Rectangle {
+
+component Info-List inherits Rectangle {
+    in property <color> text-color;
+    in property <color> base-color;
+
     in property <string> heading;
+    in property <[{ title: string, icon: image }]> data;
 
     VerticalLayout {
         spacing: 10px;
@@ -52,14 +133,116 @@ component InfoCard inherits Rectangle {
         Text {
             text: root.heading;
             font-size: 25px;
-            color: #8198ff;
+            color: root.base-color;
             font-weight: 900;
         }
 
         VerticalLayout {
-            spacing: 10px;
+            spacing: 5px;
 
-            @children
+            for elem[in] in root.data: Rectangle {
+                background: base-color;
+                border-top-left-radius: in == 0 ? 20px : 0px;
+                border-top-right-radius: in == 0 ? 20px : 0px;
+                border-bottom-left-radius: in == root.data.length - 1 ? 20px : 0px;
+                border-bottom-right-radius: in == root.data.length - 1 ? 20px : 0px;
+
+                HorizontalLayout {
+                    alignment: space-between;
+                    spacing: 20px;
+                    padding: 10px;
+                    padding-left: 20px;
+                    padding-right: self.padding-left;
+
+                    Text {
+                        text: elem.title;
+                        font-size: 25px;
+                        color: root.text-color;
+                        font-weight: 900;
+                    }
+
+                    Image {
+                        source: elem.icon;
+                        image-fit: contain;
+                        colorize: Theme.info.baseFg;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+component Info-Interface inherits Rectangle {
+
+    property <color> base-color: #d37800;
+    property <color> text-color: #5e3101;
+
+    VerticalLayout {
+        padding: 20px;
+
+        Flickable {
+            VerticalLayout {
+                spacing: 20px;
+                alignment: start;
+
+                Info-List {
+                    base-color: root.base-color;
+                    text-color: root.text-color;
+                    heading: "Screen";
+                    data: [
+                        { title: "Board", icon: @image-url("../assets/icons/swords.svg") },
+                        { title: "Stats", icon: @image-url("../assets/icons/chart-column.svg") },
+                        { title: "Help", icon: @image-url("../assets/icons/circle-question-mark.svg") },
+                    ];
+                }
+
+                Info-List {
+                    base-color: root.base-color;
+                    text-color: root.text-color;
+                    heading: "Gameplay";
+                    data: [
+                        { title: "User turn", icon: @image-url("../assets/icons/user.svg") },
+                        { title: "PC turn", icon: @image-url("../assets/icons/monitor.svg") },
+                        { title: "New Game", icon: @image-url("../assets/icons/badge-plus.svg") },
+                    ];
+                }
+
+                Info-List {
+                    base-color: root.base-color;
+                    text-color: root.text-color;
+
+                    heading: "Window";
+                    data: [
+                        { title: "Move", icon: @image-url("../assets/icons/move.svg") },
+                        { title: "Quit", icon: @image-url("../assets/icons/x.svg") },
+                    ];
+                }
+            }
+        }
+    }
+}
+
+export component Info-About inherits Rectangle {
+    VerticalLayout {
+        spacing: 20px;
+        alignment: center;
+        cross-axis-alignment: center;
+
+        Text {
+            horizontal-alignment: center;
+            text: "RoF4\nRo(w) (o)F Four";
+            color: Theme.info.slotFg;
+            font-weight: 900;
+            font-size: 40px;
+        }
+
+        Text {
+            horizontal-alignment: center;
+            text: "Anshuman Kumar\n@TheNoobCoder-8513";
+            color: Theme.info.slotFg;
+            font-weight: 900;
+            font-size: 20px;
         }
     }
 }
@@ -73,57 +256,7 @@ export component Info inherits Rectangle {
 
     width: self.height;
 
-    VerticalLayout {
-        padding: 20px;
-
-        Flickable {
-            VerticalLayout {
-                spacing: 20px;
-                alignment: start;
-
-                InfoCard {
-                    heading: "Navigation";
-
-                    private property <[{ title: string, icon: image }]> nav-items: [
-                        { title: "Board", icon: @image-url("../assets/icons/swords.svg") },
-                        { title: "Stats", icon: @image-url("../assets/icons/chart-column.svg") },
-                        { title: "Info", icon: @image-url("../assets/icons/info.svg") },
-                    ];
-
-                    for elem in nav-items: InfoDetail {
-                        Info-title {
-                            text: elem.title;
-                        }
-
-                        Info-Icon {
-                            height: 50px;
-                            width: self.height;
-                            icon: elem.icon;
-                        }
-                    }
-                }
-
-                InfoCard {
-                    heading: "App";
-
-                    private property <[{ title: string, icon: image }]> nav-items: [
-                        { title: "Move", icon: @image-url("../assets/icons/move.svg") },
-                        { title: "Quit", icon: @image-url("../assets/icons/x.svg") },
-                    ];
-
-                    for elem in nav-items: InfoDetail {
-                        Info-title {
-                            text: elem.title;
-                        }
-
-                        Info-Icon {
-                            height: 50px;
-                            width: self.height;
-                            icon: elem.icon;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    if State.help-screen == THelpScreen.None: Info-None { }
+    if State.help-screen == THelpScreen.Interface: Info-Interface { }
+    if State.help-screen == THelpScreen.About: Info-About { }
 }

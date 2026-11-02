@@ -1,5 +1,5 @@
 import { State } from "../state.slint";
-import { TBall, TScreen } from "../model.slint";
+import { TBall, TScreen, THelpScreen } from "../model.slint";
 import { IconButton } from "IconButton.slint";
 import { Theme } from "../theme.slint";
 
@@ -32,7 +32,7 @@ export component Menu {
             private property <[image]> buttons: [
                 @image-url("../assets/icons/swords.svg"),
                 @image-url("../assets/icons/chart-column.svg"),
-                @image-url("../assets/icons/info.svg"),
+                @image-url("../assets/icons/circle-question-mark.svg"),
             ];
 
             for elem[in] in buttons: IconButton {
@@ -53,6 +53,7 @@ export component Menu {
                     } else if (current == TScreen.Stat && State.screen != TScreen.Stat) {
                         State.screen = TScreen.Stat;
                     } else if (current == TScreen.Info && State.screen != TScreen.Info) {
+                        State.help-screen = THelpScreen.None;
                         State.screen = TScreen.Info;
                     }
                 }
@@ -81,6 +82,16 @@ export component Menu {
 
                     clicked => {
                         root.reset-board();
+                    }
+                }
+            }
+
+            if State.screen == TScreen.Info && State.help-screen != THelpScreen.None: MenuGroup {
+                IconButton {
+                    icon: @image-url("../assets/icons/circle-arrow-left.svg");
+
+                    clicked => {
+                        State.help-screen = THelpScreen.None;
                     }
                 }
             }

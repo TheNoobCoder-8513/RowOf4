@@ -1,9 +1,10 @@
-import { TBall, TBoard, TStat, TScreen } from "model.slint";
+import { TBall, TBoard, TStat, TScreen, THelpScreen } from "model.slint";
 
 
 
 export global State {
     in-out property <TScreen> screen: TScreen.Info;
+    in-out property <THelpScreen> help-screen: THelpScreen.Interface;
 
     in-out property <TBall> turn: TBall.User;
     public function updateTurn() {

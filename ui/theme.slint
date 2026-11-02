@@ -15,6 +15,13 @@ struct Board {
     slot: color,
 }
 
+struct Info {
+    base: color,
+    slot: color,
+    baseFg: color,
+    slotFg: color,
+}
+
 struct Control {
     surface: color,
     active: color,
@@ -26,6 +33,13 @@ export global Theme {
     out property <Board> board: {
         base: #0016c1,
         slot: #00129a,
+    };
+
+    out property <Info> info: {
+        base: #db7800,
+        slot: #a55d00,
+        baseFg: #522600,
+        slotFg: #e38100,
     };
 
     out property <Cell> cell: {

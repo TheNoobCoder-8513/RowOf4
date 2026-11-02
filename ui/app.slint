@@ -1,4 +1,3 @@
-
 import { State } from "state.slint";
 import { TScreen } from "model.slint";
 import { Menu } from "lego/menu.slint";
@@ -9,9 +8,10 @@ import { GDialog } from "lego/dialog.slint";
 export component App inherits Window {
     in-out property <TScreen> screen <=> State.screen;
 
-    title: "RowOf4";
+    title: "RoF4";
     background: transparent;
     no-frame: true;
+    default-font-family: "Ubuntu";
 
 
     Rectangle {
@@ -21,7 +21,7 @@ export component App inherits Window {
         border-radius: 20px;
 
         min-height: 600px;
-        min-width: 550px;
+        min-width: 540px;
 
         VerticalLayout {
 
