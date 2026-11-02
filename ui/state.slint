@@ -1,4 +1,11 @@
-import { TBall, TBoard, TStat, TScreen, THelpScreen } from "model.slint";
+import {
+    TBall,
+    TBoard,
+    TStat,
+    TScreen,
+    THelpScreen,
+    TFinish,
+} from "model.slint";
 
 
 
@@ -19,12 +26,16 @@ export global State {
 
     in property <TStat> stat:  {
         match: 86,
-        completed: 42,
-        skipped: 44,
+        finished: 42,
+        unfinished: 44,
         win: 31,
         tie: 11,
         lost: 44,
     };
+
+    in property <TFinish> finish;
+
+    callback reset-board();
     in-out property <TBoard> board: {
         board: [
             [

@@ -102,7 +102,7 @@ export component GDialog inherits Rectangle {
                     HorizontalLayout {
                         padding: 20px;
                         spacing: 20px;
-                        alignment: space-between;
+                        alignment: buttons.length == 1 ? end: space-between;
 
                         for elem[in] in buttons: GDialogButton {
                             button: elem;

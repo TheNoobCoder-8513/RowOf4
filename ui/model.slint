@@ -14,18 +14,14 @@ export struct TBoard {board: [[TSlot]]}
 
 export struct TStat {
     match: int,
-    completed: int,
-    skipped: int,
+    finished: int,
+    unfinished: int,
     win: int,
     tie: int,
     lost: int,
 }
 
-export enum TScreen {
-    Board,
-    Stat,
-    Info
-}
+export enum TScreen { Board, Stat, Info }
 
 export enum THelpScreen {
     None,
@@ -33,4 +29,11 @@ export enum THelpScreen {
     Rules,
     Interface,
     About,
+}
+
+export enum TFinish {
+    None,
+    Win,
+    Tie,
+    Lost,
 }

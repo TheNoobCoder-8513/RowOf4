@@ -1,3 +1,33 @@
-export component Finish inherits Window {
-    
+import { GDialog } from "../lego/dialog.slint";
+import { State } from "../state.slint";
+import { TFinish } from "../model.slint";
+
+
+export component Finish-Game inherits PopupWindow {
+    close-policy: no-auto-close;
+
+    function getMes() -> string {
+        let current = State.finish;
+        if (current == TFinish.Win) {
+            "Hey, You Woooooonn !!!";
+        } else if (current == TFinish.Tie) {
+            "That was a good game. Respect."
+        } else if (current == TFinish.Lost) {
+            "Try harder next time."
+        } else {
+            "Not this time."
+        }
+    }
+
+    GDialog {
+        message: getMes();
+        buttons: ["Close", "Play again"];
+
+        clicked(in) => {
+            root.close();
+            if (in == 1) {
+                State.reset-board();
+            }
+        }
+    }
 }

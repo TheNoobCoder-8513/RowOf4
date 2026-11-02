@@ -3,6 +3,8 @@ import { TScreen } from "model.slint";
 import { Menu } from "lego/menu.slint";
 import { Board, Stats, Info } from "screens/screen.slint";
 import { GDialog } from "lego/dialog.slint";
+import { Reset-Board } from "dialogs/reset-board.slint";
+import { Finish-Game } from "dialogs/finish.slint";
 
 // App entry
 export component App inherits Window {
@@ -12,7 +14,6 @@ export component App inherits Window {
     background: transparent;
     no-frame: true;
     default-font-family: "Ubuntu";
-
 
     Rectangle {
         background: #c42350;
@@ -48,19 +49,13 @@ export component App inherits Window {
         }
     }
 
-    reset-board := PopupWindow {
+    reset-board := Reset-Board {
         height: root.height;
         width: root.width;
+    }
 
-        close-policy: no-auto-close;
-
-        GDialog {
-            message: "Reset the board and start a new game ?";
-            buttons: ["No", "Yes"];
-
-            clicked => {
-                reset-board.close();
-            }
-        }
+    finish-board:= Finish-Game {
+        height: root.height;
+        width: root.width;
     }
 }
