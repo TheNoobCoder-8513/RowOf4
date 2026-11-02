@@ -1,0 +1,106 @@
+import { State } from "../state.slint";
+import { TBall, TScreen } from "../model.slint";
+import { IconButton } from "IconButton.slint";
+import { Theme } from "../theme.slint";
+
+
+component MenuGroup {
+    Rectangle {
+        border-width: 5px;
+        border-radius: 10px;
+        border-color: Theme.control.surface;
+
+        HorizontalLayout {
+            spacing: 10px;
+            @children
+        }
+    }
+}
+
+
+export component Menu {
+    callback close();
+    callback reset-board();
+    callback show-help();
+
+    HorizontalLayout {
+        spacing: 20px;
+        alignment: space-between;
+
+        MenuGroup {
+
+            private property <[image]> buttons: [
+                @image-url("../assets/icons/swords.svg"),
+                @image-url("../assets/icons/chart-column.svg"),
+                @image-url("../assets/icons/info.svg"),
+            ];
+
+            for elem[in] in buttons: IconButton {
+                icon: elem;
+
+                function getScreen(in: int) -> TScreen {
+                    if in == 0 { TScreen.Board }
+                    else if in == 1 { TScreen.Stat }
+                    else if in == 2 { TScreen.Info }
+                    else { TScreen.Board }
+                }
+
+                clicked => {
+                    let current = getScreen(in);
+
+                    if (current == TScreen.Board && State.screen != TScreen.Board) {
+                        State.screen = TScreen.Board;
+                    } else if (current == TScreen.Stat && State.screen != TScreen.Stat) {
+                        State.screen = TScreen.Stat;
+                    } else if (current == TScreen.Info && State.screen != TScreen.Info) {
+                        State.screen = TScreen.Info;
+                    }
+                }
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 20px;
+
+            if State.screen == TScreen.Board: MenuGroup {
+
+                IconButton {
+                    enabled: false;
+                    icon: State.turn == TBall.User ? @image-url("../assets/icons/user.svg") : @image-url("../assets/icons/monitor.svg");
+
+                    clicked => {
+                    }
+                }
+
+                pure function gameBegun() -> bool {
+                    State.last-move.row != -1 && State.last-move.col != -1
+                }
+
+                if gameBegun(): IconButton {
+                    icon: @image-url("../assets/icons/badge-plus.svg");
+
+                    clicked => {
+                        root.reset-board();
+                    }
+                }
+            }
+
+            MenuGroup {
+
+                WindowMoveArea {
+                    IconButton {
+                        icon: @image-url("../assets/icons/move.svg");
+                    }
+                }
+
+                IconButton {
+                    icon: @image-url("../assets/icons/x.svg");
+
+                    clicked => {
+                        root.close();
+                    }
+                }
+            }
+        }
+    }
+}

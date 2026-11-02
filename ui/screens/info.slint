@@ -1,0 +1,129 @@
+import { Theme } from "../theme.slint";
+import { State } from "../state.slint";
+
+
+component Info-title inherits Text {
+    font-size: 25px;
+    color: #c9c9c9;
+    font-weight: 900;
+}
+
+component Info-Icon inherits Rectangle {
+    in property <image> icon;
+
+    Rectangle {
+        border-width: 5px;
+        border-radius: 10px;
+        // background: Theme.control.active;
+        // border-color: self.background.darker(0.25);
+
+        HorizontalLayout {
+            padding: 12px;
+            img := Image {
+
+                source: root.icon;
+                image-fit: fill;
+                colorize: #d3a3ff;
+            }
+        }
+    }
+}
+
+component InfoDetail inherits Rectangle {
+    background: Theme.board.base;
+    border-radius: 20px;
+
+    HorizontalLayout {
+        padding-left: 20px;
+        padding-right: self.padding-left;
+        alignment: space-between;
+        cross-axis-alignment: center;
+
+        @children
+    }
+}
+
+component InfoCard inherits Rectangle {
+    in property <string> heading;
+
+    VerticalLayout {
+        spacing: 10px;
+
+        Text {
+            text: root.heading;
+            font-size: 25px;
+            color: #8198ff;
+            font-weight: 900;
+        }
+
+        VerticalLayout {
+            spacing: 10px;
+
+            @children
+        }
+    }
+}
+
+export component Info inherits Rectangle {
+
+    background: Theme.board.slot;
+    border-width: 5px;
+    border-radius: 20px;
+    border-color: Theme.board.base;
+
+    width: self.height;
+
+    VerticalLayout {
+        padding: 20px;
+
+        Flickable {
+            VerticalLayout {
+                spacing: 20px;
+                alignment: start;
+
+                InfoCard {
+                    heading: "Navigation";
+
+                    private property <[{ title: string, icon: image }]> nav-items: [
+                        { title: "Board", icon: @image-url("../assets/icons/swords.svg") },
+                        { title: "Stats", icon: @image-url("../assets/icons/chart-column.svg") },
+                        { title: "Info", icon: @image-url("../assets/icons/info.svg") },
+                    ];
+
+                    for elem in nav-items: InfoDetail {
+                        Info-title {
+                            text: elem.title;
+                        }
+
+                        Info-Icon {
+                            height: 50px;
+                            width: self.height;
+                            icon: elem.icon;
+                        }
+                    }
+                }
+
+                InfoCard {
+                    heading: "App";
+
+                    private property <[{ title: string, icon: image }]> nav-items: [
+                        { title: "Move", icon: @image-url("../assets/icons/move.svg") },
+                        { title: "Quit", icon: @image-url("../assets/icons/x.svg") },
+                    ];
+
+                    for elem in nav-items: InfoDetail {
+                        Info-title {
+                            text: elem.title;
+                        }
+
+                        Info-Icon {
+                            height: 50px;
+                            width: self.height;
+                            icon: elem.icon;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

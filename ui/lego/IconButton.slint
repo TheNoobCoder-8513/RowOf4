@@ -1,0 +1,53 @@
+import { Theme } from "../theme.slint";
+
+export component IconButton {
+    callback clicked();
+
+    height: 50px;
+    width: self.height;
+
+    in property <bool> enabled: true;
+    in property <image> icon;
+
+    touch := TouchArea {
+        clicked => {
+            if root.enabled {
+                root.clicked();
+            }
+        }
+    }
+
+    Rectangle {
+        border-width: 5px;
+        border-radius: 10px;
+        transform-scale: 100%;
+        border-color: self.background.darker(0.25);
+
+        HorizontalLayout {
+            padding: 12px;
+            img := Image {
+
+                source: root.icon;
+                image-fit: fill;
+                // colorize: #c2c2c2;
+                colorize: #d3a3ff;
+            }
+        }
+
+        states [
+            disabled when !root.enabled: {
+                background: Theme.control.active;
+            }
+            clicked when touch.pressed: {
+                background: Theme.control.active;
+                transform-scale: 90%;
+            }
+            hovered when touch.has-hover: {
+                background: Theme.control.hovered;
+            }
+            default when true: {
+                background: Theme.control.active;
+            }
+        ]
+    }
+}

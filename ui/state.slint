@@ -1,0 +1,241 @@
+import { TBall, TBoard, TStat, TScreen } from "model.slint";
+
+
+
+export global State {
+    in-out property <TScreen> screen: TScreen.Info;
+
+    in-out property <TBall> turn: TBall.User;
+    public function updateTurn() {
+        root.turn = root.turn == TBall.User ? TBall.CPU : TBall.User;
+    }
+
+    in-out property <{ row: int, col: int }> last-move: { row: 1, col: 1 };
+    public function updateLastMove(rin: int, cin: int) {
+        root.last-move.row = rin;
+        root.last-move.col = cin;
+    }
+
+    in property <TStat> stat:  {
+        match: 86,
+        completed: 42,
+        skipped: 44,
+        win: 31,
+        tie: 11,
+        lost: 44,
+    };
+    in-out property <TBoard> board: {
+        board: [
+            [
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: true,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: true,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: true,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: true,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+            ],
+            [
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.CPU,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.None,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+                {
+                    ball: TBall.User,
+                    active: false,
+                },
+            ],
+        ]
+    };
+}

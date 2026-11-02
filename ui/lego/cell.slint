@@ -1,0 +1,58 @@
+import { TSlot, TBall } from "../model.slint";
+import { State } from "../state.slint";
+import { Theme } from "../theme.slint";
+
+
+
+export component Cell inherits Rectangle {
+    in-out property <TSlot> slot;
+    in property <bool> isLast;
+    callback clicked();
+
+    width: self.height;
+    border-radius: 20px;
+    border-width: 5px;
+    background: Theme.board.slot;
+
+    touch := TouchArea {
+        clicked => {
+            if slot.ball == TBall.None {
+                slot.ball = State.turn;
+                State.updateTurn();
+                root.clicked();
+            }
+        }
+    }
+
+    HorizontalLayout {
+        padding: 10px;
+        cell := Rectangle {
+            width: self.height;
+            border-radius: 10px;
+            border-width: 5px;
+            
+
+            states [
+                user when root.slot.ball == TBall.User: {
+                    background: Theme.cell.user.active;
+                }
+                opponent when root.slot.ball == TBall.CPU: {
+                    background: Theme.cell.pc.active;
+                }
+            ]
+        }
+    }
+
+    
+    states [
+        isLast when root.isLast : {
+            border-color: Theme.cell.highlight;
+        }
+        finished when root.slot.active && root.slot.ball != TBall.None: {
+            border-color: root.slot.ball == TBall.User ? Theme.cell.user.active : Theme.cell.pc.active;
+        }
+        partial when touch.has-hover && root.slot.ball == TBall.None: {
+            cell.background: State.turn == TBall.User ? Theme.cell.user.partial : Theme.cell.pc.partial;
+        }
+    ]
+}

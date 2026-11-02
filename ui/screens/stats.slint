@@ -1,0 +1,182 @@
+import { Theme } from "../theme.slint";
+import { TStat } from "../model.slint";
+import { State } from "../state.slint";
+
+component StatCard inherits Rectangle {
+    in property <string> heading;
+    background: Theme.board.base;
+    border-radius: 20px;
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 20px;
+
+        Text {
+            text: root.heading;
+            font-size: 25px;
+            color: #8198ff;
+            font-weight: 900;
+        }
+
+        @children
+    }
+}
+
+component PortionChart inherits Rectangle {
+    in property <[{ value: int, color: color }]> portions;
+
+    border-radius: 20px;
+    background: Theme.board.slot;
+
+    HorizontalLayout {
+        padding: 10px;
+        spacing: 10px;
+
+        for elem[in] in portions: Rectangle {
+            height: 20px;
+            horizontal-stretch: elem.value;
+
+            background: elem.color;
+            border-width: 4px;
+            border-color: self.background.darker(0.25);
+            border-radius: 10px;
+        }
+    }
+}
+
+component FinishCard inherits StatCard {
+    in property <{ win: int, tie: int, lost: int }> data;
+
+    heading: "Finishes";
+
+    VerticalLayout {
+        spacing: 10px;
+
+        PortionChart {
+            portions: [
+                { value: root.data.win, color: #25ff4d },
+                { value: root.data.tie, color: #e6e6e6 },
+                { value: root.data.lost, color: #ff2e4e }
+            ];
+        }
+
+        VerticalLayout {
+            spacing: 5px;
+
+            private property <[{ title: string, val: int, color: color }]> items: [
+                { title: "Win", val: root.data.win, color: #25ff4d },
+                { title: "Tie", val: root.data.tie, color: #e6e6e6 },
+                { title: "Lost", val: root.data.lost, color: #ff2e4e },
+            ];
+
+            for elem in items: HorizontalLayout {
+                spacing: 10px;
+                cross-axis-alignment: center;
+
+                Rectangle {
+                    width: 20px;
+                    height: self.width;
+                    border-radius: 10px;
+                    border-width: 5px;
+                    border-color: elem.color;
+                    background: transparent;
+                }
+
+                HorizontalLayout {
+                    spacing: 20px;
+                    alignment: space-between;
+
+                    Text {
+                        text: elem.title;
+                        font-size: 25px;
+                        color: #c9c9c9;
+                        font-weight: 900;
+                    }
+
+                    Text {
+                        text: elem.val;
+                        font-size: 25px;
+                        color: elem.color;
+                        font-weight: 900;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+export component MatchCard inherits StatCard {
+    heading: "Matches";
+
+    in property <{ total: int, finished: int, unfinished: int }> data;
+
+    private property <[{ title: string, value: int }]> items: [
+        { title: "Total", value: root.data.total },
+        { title: "Finished", value: root.data.finished },
+        { title: "Unfinished", value: root.data.unfinished },
+    ];
+
+    property <color> title-color: #ababab;
+    property <color> value-color: #d5d5d5;
+
+    VerticalLayout {
+        spacing: 5px;
+
+        for elem in items: HorizontalLayout {
+            spacing: 40px;
+            alignment: space-between;
+
+            Text {
+                text: elem.title;
+                font-size: 25px;
+                color: root.title-color;
+                font-weight: 900;
+            }
+
+            Text {
+                text: elem.value;
+                font-size: 25px;
+                color: root.value-color;
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+
+
+export component Stats inherits Rectangle {
+
+    in property <TStat> stat <=> State.stat;
+
+    background: Theme.board.slot;
+    border-width: 5px;
+    border-radius: 20px;
+    border-color: Theme.board.base;
+
+    width: self.height;
+
+    VerticalLayout {
+        padding: 20px;
+
+        Flickable {
+            VerticalLayout {
+                spacing: 20px;
+                alignment: start;
+
+                FinishCard {
+                    data: {
+                        win: root.stat.win,
+                        tie: root.stat.tie,
+                        lost: root.stat.lost,
+                    };
+                }
+
+                MatchCard {
+                    data: { total: root.stat.match, finished: root.stat.completed, unfinished: root.stat.skipped };
+                }
+            }
+        }
+    }
+}

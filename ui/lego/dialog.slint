@@ -1,0 +1,119 @@
+import { Theme } from "../theme.slint";
+
+export component GDialogButton {
+    in property <string> button;
+    in property <bool> enabled: true;
+
+    height: self.preferred-height;
+
+    callback clicked();
+
+    Rectangle {
+        touch := TouchArea {
+            clicked => {
+                root.clicked();
+            }
+        }
+
+        Rectangle {
+            min-width: 100px;
+            border-width: 5px;
+            border-radius: 20px;
+            transform-scale: 100%;
+            border-color: self.background.darker(0.25);
+
+            HorizontalLayout {
+                padding: 10px;
+                Text {
+                    text: root.button;
+                    font-size: 25px;
+                    color: #e7aeff;
+                    font-weight: 900;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+
+            states [
+                disabled when !root.enabled: {
+                    background: Theme.control.active;
+                }
+                clicked when touch.pressed: {
+                    background: Theme.control.active;
+                    transform-scale: 90%;
+                }
+                hovered when touch.has-hover: {
+                    background: Theme.control.hovered;
+                }
+                default when true: {
+                    background: Theme.control.active;
+                }
+            ]
+        }
+    }
+}
+
+export component GDialog inherits Rectangle {
+    in property <string> message: "Gdialog message";
+    in property <[string]> buttons: ["No", "Yes"];
+
+    callback clicked(int);
+
+    background: #000000.with-alpha(0.4);
+
+    HorizontalLayout {
+        alignment: center;
+        cross-axis-alignment: center;
+
+        dialog := Rectangle {
+            background: #c42350;
+            border-width: 5px;
+            border-color: self.background.brighter(0.25);
+            border-radius: 20px;
+
+            VerticalLayout {
+                alignment: center;
+                cross-axis-alignment: center;
+
+                VerticalLayout {
+                    min-height: 240px;
+                    min-width: 360px;
+                    max-height: 400px;
+                    max-width: 400px;
+
+                    VerticalLayout {
+
+                        padding: 20px;
+                        Text {
+                            text: root.message;
+                            color: #cacaca;
+                            font-size: 24px;
+                            font-weight: 900;
+                            wrap: word-wrap;
+                        }
+                    }
+
+                    Rectangle {
+
+                        height: dialog.border-width;
+                        background: dialog.border-color;
+                    }
+
+                    HorizontalLayout {
+                        padding: 20px;
+                        spacing: 20px;
+                        alignment: space-between;
+
+                        for elem[in] in buttons: GDialogButton {
+                            button: elem;
+
+                            clicked => {
+                                root.clicked(in)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

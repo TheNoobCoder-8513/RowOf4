@@ -1,0 +1,66 @@
+
+import { State } from "state.slint";
+import { TScreen } from "model.slint";
+import { Menu } from "lego/menu.slint";
+import { Board, Stats, Info } from "screens/screen.slint";
+import { GDialog } from "lego/dialog.slint";
+
+// App entry
+export component App inherits Window {
+    in-out property <TScreen> screen <=> State.screen;
+
+    title: "RowOf4";
+    background: transparent;
+    no-frame: true;
+
+
+    Rectangle {
+        background: #c42350;
+        border-width: 5px;
+        border-color: self.background.brighter(0.25);
+        border-radius: 20px;
+
+        min-height: 600px;
+        min-width: 550px;
+
+        VerticalLayout {
+
+            padding: 20px;
+            spacing: 10px;
+
+            Menu {
+                close => {
+                    root.hide();
+                }
+
+                reset-board => {
+                    reset-board.show();
+                }
+            }
+
+            if root.screen == TScreen.Board: Board {
+                board <=> State.board;
+            }
+
+            if root.screen == TScreen.Stat: Stats { }
+
+            if root.screen == TScreen.Info: Info { }
+        }
+    }
+
+    reset-board := PopupWindow {
+        height: root.height;
+        width: root.width;
+
+        close-policy: no-auto-close;
+
+        GDialog {
+            message: "Reset the board and start a new game ?";
+            buttons: ["No", "Yes"];
+
+            clicked => {
+                reset-board.close();
+            }
+        }
+    }
+}

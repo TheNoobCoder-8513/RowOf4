@@ -1,0 +1,28 @@
+export enum TBall {
+    None,
+    User,
+    CPU,
+}
+
+export struct TSlot {
+    ball: TBall,
+    active: bool,
+}
+
+export struct TBoard {board: [[TSlot]]}
+
+
+export struct TStat {
+    match: int,
+    completed: int,
+    skipped: int,
+    win: int,
+    tie: int,
+    lost: int,
+}
+
+export enum TScreen {
+    Board,
+    Stat,
+    Info
+}

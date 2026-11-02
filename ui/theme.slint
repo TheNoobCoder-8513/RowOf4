@@ -1,0 +1,52 @@
+struct Cell {
+    user: {
+        active: color,
+        partial: color,
+    },
+    pc: {
+        active: color,
+        partial: color,
+    },
+    highlight: color
+}
+
+struct Board {
+    base: color,
+    slot: color,
+}
+
+struct Control {
+    surface: color,
+    active: color,
+    hovered: color,
+    focused: color,
+}
+
+export global Theme {
+    out property <Board> board: {
+        base: #0016c1,
+        slot: #00129a,
+    };
+
+    out property <Cell> cell: {
+        user: {
+            active: #c01515,
+            partial: #c015157c,
+        },
+        pc:{
+            active: #d3af2f,
+            partial: #d3c02f77,
+        },
+        highlight: #2b95ff,
+    };
+
+
+    // private property <color> control-active: #df6400;
+    private property <color> control-active: #6200bd;
+    out property <Control> control: {
+        surface: transparent,
+        active: control-active,
+        hovered: control-active.brighter(0.1),
+        focused: control-active.darker(0.1),
+    };
+}
