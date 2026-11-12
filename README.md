@@ -1,6 +1,6 @@
 <div align="center">
 
-# RoF4 — 
+# RoF4
 ## Row of Four
 
 **A sleek, tactical 7×7 Connect-Four game engineered in Rust with a declarative Slint GUI and intelligent Minimax AI.**
