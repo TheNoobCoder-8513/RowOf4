@@ -38,7 +38,7 @@ Whether practicing strategic openings, analyzing match metrics, or facing off ag
   - Automatically records match outcomes (`Win`, `Lost`, `Tie`, `Unfinished`), move counts, and timestamps to `data/history.json`.
   - Proportional visual progress charts illustrating Win/Tie/Loss ratios.
   - FIFO rolling match ledger keeping detailed records of the last 20 encounters.
-- ℹ**Interactive Help & About Hub**:
+- **Interactive Help & About Hub**:
   - Modular in-app documentation detailing interface icons, turn dynamics, and gameplay controls.
   - Integrated project and author showcase.
 
