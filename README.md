@@ -1,20 +1,18 @@
 <div align="center">
 
 # RoF4
-## Row of Four
+## **A sleek, tactical 7×7 Connect-Four or 'Row Of 4' game**
 
-**A sleek, tactical 7×7 Connect-Four game engineered in Rust with a declarative Slint GUI and intelligent Minimax AI.**
+![Diag win](./shots/Board3.png)
 
 
-[Features](#-features) • [Screenshots](#-visual-showcase) • [Architecture](#-architecture--system-design) • [AI Engine](#-ai-decision-engine) • [Getting Started](#-getting-started) • [Controls](#-controls--navigation)
 
 </div>
+<br>
 
----
+## 1. Overview
 
-## Overview
-
-**RoF4** (*Ro(w) (o)F Four*) reimagines the classic four-in-a-row tactical puzzle as a high-performance native desktop application. 
+**RoF4**   {**Ro**(w) (o)**F** **4**} reimagines the classic four-in-a-row tactical puzzle as a high-performance native desktop application. 
 
 Built with **Rust** and styled declaratively with **Slint**, RoF4 pairs a frameless modern visual design with sound game state modeling, compile-time win evaluation, and an AI opponent.
 
@@ -22,9 +20,10 @@ Whether practicing strategic openings, analyzing match metrics, or facing off ag
 
 ---
 
-## Features
+## 2. Features
 
-- **Tactical 7×7 Grid Matrix**: Expansive 49-cell board featuring 88 compile-time pre-computed winning paths across horizontal, vertical, and both diagonal vectors.
+- **Tactical 7×7 Grid Matrix**:
+  - Expansive 49-cell board featuring 88 compile-time pre-computed winning paths across horizontal, vertical, and both diagonal vectors.
 - **Intelligent Minimax AI**:
   - Instant win recognition and immediate opponent threat blocking.
   - Proximity candidate pruning focused around active clusters and center control.
@@ -45,26 +44,25 @@ Whether practicing strategic openings, analyzing match metrics, or facing off ag
 
 ---
 
-## Visual Showcase
+## 3. Visual Showcase
 
 ### Game Board & Match States
 
-![Fresh Board](./shots/Board0.png)
-
-![User Horizontal Win](./shots/Board2.png)
-
-![User Diagonal Win](./shots/Board3.png)
+| Fresh Board | User Win |
+| :---: | :---: |
+| ![Fresh Board](./shots/Board0.png) | ![User Horizontal Win](./shots/Board2.png) |
 
 
 ### Analytics & System Screens
 
-![Stats Screen](./shots/Stats.png)
+| Stats Screen | Info Hub |
+| :---: | :---: |
+| ![Stats Screen](./shots/Stats.png) | ![Info Hub](./shots/Info.png) |
 
-![Info Hub](./shots/Info.png)
+| Interface Sheet | About Screen |
+| :---: | :---: |
+| ![Interface Sheet](./shots/Interface_Info.png) | ![About Screen](./shots/Game_About.png) |
 
-![Interface Sheet](./shots/Interface_Info.png)
-
-![About Screen](./shots/Game_About.png)
 
 
 ### Module Breakdown
@@ -80,7 +78,7 @@ Whether practicing strategic openings, analyzing match metrics, or facing off ag
 
 ---
 
-## Getting Started
+## 4. Getting Started
 
 ### Prerequisites
 
@@ -98,7 +96,7 @@ sudo apt update
 sudo apt install libfontconfig1-dev libfreetype6-dev libxkbcommon-dev libxkbcommon-x11-dev libgl1-mesa-dev
 ```
 
-### Installation & Run
+### 5. Installation & Run
 
 1. **Clone the repository:**
    ```bash
@@ -116,33 +114,5 @@ sudo apt install libfontconfig1-dev libfreetype6-dev libxkbcommon-dev libxkbcomm
    cargo test
    ```
    *The test suite verifies win conditions (horizontal, vertical, both diagonals), occupied cell guards, AI immediate win/block decisions, and FIFO match history persistence.*
-
----
-
-## Project Structure
-
-```
-RowOf4/
-├── Cargo.toml            # Rust package manifest & dependencies
-├── build.rs              # Slint UI build script
-├── data/
-│   └── history.json      # Persistent match history ledger
-
-├── src/
-│   ├── main.rs           # App entry & runtime setup
-│   ├── controller.rs     # Controller & UI-engine synchronization
-│   ├── game.rs           # Rules engine, grid, & 88 winning vectors
-│   ├── ai.rs             # Heuristic Minimax decision engine
-│   └── history.rs        # Match history persistence & FIFO ring
-└── ui/
-    ├── app.slint         # Root application window & popup dialogs
-    ├── model.slint       # Shared Slint structs & enums
-    ├── state.slint       # Global reactive UI state
-    ├── theme.slint       # Color tokens & theme definition
-    ├── assets/icons/     # Vector SVG interface icons
-    ├── dialogs/          # Confirmation and completion modals
-    ├── lego/             # Reusable UI widgets (Cell, Menu, Buttons)
-    └── screens/          # Primary view screens (Board, Stats, Info)
-```
 
 ---
