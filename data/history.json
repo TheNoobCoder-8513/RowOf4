@@ -1,34 +1,6 @@
 {
   "matches": [
     {
-      "id": 30,
-      "timestamp": 1793674540,
-      "result": "Lost",
-      "total_steps": 12,
-      "user_steps": 6
-    },
-    {
-      "id": 31,
-      "timestamp": 1793674550,
-      "result": "Win",
-      "total_steps": 11,
-      "user_steps": 6
-    },
-    {
-      "id": 32,
-      "timestamp": 1793674573,
-      "result": "Lost",
-      "total_steps": 12,
-      "user_steps": 6
-    },
-    {
-      "id": 33,
-      "timestamp": 1793674590,
-      "result": "Lost",
-      "total_steps": 12,
-      "user_steps": 6
-    },
-    {
       "id": 34,
       "timestamp": 1793674609,
       "result": "Lost",
@@ -139,12 +111,40 @@
       "result": "Win",
       "total_steps": 17,
       "user_steps": 9
+    },
+    {
+      "id": 50,
+      "timestamp": 1794459877,
+      "result": "Lost",
+      "total_steps": 8,
+      "user_steps": 4
+    },
+    {
+      "id": 51,
+      "timestamp": 1794459965,
+      "result": "Lost",
+      "total_steps": 14,
+      "user_steps": 7
+    },
+    {
+      "id": 52,
+      "timestamp": 1794460140,
+      "result": "Unfinished",
+      "total_steps": 6,
+      "user_steps": 3
+    },
+    {
+      "id": 53,
+      "timestamp": 1794460162,
+      "result": "Win",
+      "total_steps": 9,
+      "user_steps": 5
     }
   ],
-  "total_matches": 49,
-  "finished": 44,
-  "unfinished": 5,
-  "wins": 16,
+  "total_matches": 53,
+  "finished": 47,
+  "unfinished": 6,
+  "wins": 17,
   "ties": 0,
-  "losses": 28
+  "losses": 30
 }
