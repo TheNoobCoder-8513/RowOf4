@@ -24,8 +24,7 @@ export component Menu {
     callback show-help();
 
     HorizontalLayout {
-        spacing: 20px;
-        alignment: space-between;
+        spacing: 0px;
 
         MenuGroup {
 
@@ -60,6 +59,8 @@ export component Menu {
             }
         }
 
+        WindowMoveArea { }
+
         HorizontalLayout {
             spacing: 20px;
 
@@ -86,21 +87,14 @@ export component Menu {
                 }
             }
 
-            if State.screen == TScreen.Info && State.help-screen != THelpScreen.None: MenuGroup {
+            MenuGroup {
+
+                if State.screen == TScreen.Info && State.help-screen != THelpScreen.None: 
                 IconButton {
                     icon: @image-url("../assets/icons/circle-arrow-left.svg");
 
                     clicked => {
                         State.help-screen = THelpScreen.None;
-                    }
-                }
-            }
-
-            MenuGroup {
-
-                WindowMoveArea {
-                    IconButton {
-                        icon: @image-url("../assets/icons/move.svg");
                     }
                 }
 

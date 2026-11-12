@@ -1,22 +1,30 @@
 import { State } from "state.slint";
-import { TScreen } from "model.slint";
+import { TScreen, TFinish } from "model.slint";
 import { Menu } from "lego/menu.slint";
 import { Board, Stats, Info } from "screens/screen.slint";
 import { GDialog } from "lego/dialog.slint";
 import { Reset-Board } from "dialogs/reset-board.slint";
 import { Finish-Game } from "dialogs/finish.slint";
 
+export { State }
+
 // App entry
 export component App inherits Window {
     in-out property <TScreen> screen <=> State.screen;
 
+    callback show-finish();
+    show-finish => {
+        finish-board.show();
+    }
+
     title: "RoF4";
     background: transparent;
     no-frame: true;
+    resize-border-width: 5px;
     default-font-family: "Ubuntu";
 
     Rectangle {
-        background: #c42350;
+        background: State.finish == TFinish.None ? #c42350 : #18ad29;
         border-width: 5px;
         border-color: self.background.brighter(0.25);
         border-radius: 20px;
@@ -35,7 +43,11 @@ export component App inherits Window {
                 }
 
                 reset-board => {
-                    reset-board.show();
+                    if (State.finish != TFinish.None) {
+                        State.reset-board();
+                    } else {
+                        reset-board.show();
+                    }
                 }
             }
 
@@ -54,7 +66,7 @@ export component App inherits Window {
         width: root.width;
     }
 
-    finish-board:= Finish-Game {
+    finish-board := Finish-Game {
         height: root.height;
         width: root.width;
     }

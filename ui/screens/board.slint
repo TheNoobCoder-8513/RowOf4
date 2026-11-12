@@ -11,8 +11,6 @@ export component Board inherits Rectangle {
     border-width: 5px;
     border-color: Theme.board.slot;
 
-    width: self.height;
-
     GridLayout {
         padding: 15px;
         spacing: 10px;
@@ -22,7 +20,7 @@ export component Board inherits Rectangle {
                 isLast: State.last-move.col == cin && State.last-move.row == rin;
 
                 clicked => {
-                    State.updateLastMove(rin, cin);
+                    State.cell-clicked(rin, cin);
                 }
             }
         }

@@ -1,0 +1,150 @@
+{
+  "matches": [
+    {
+      "id": 30,
+      "timestamp": 1793674540,
+      "result": "Lost",
+      "total_steps": 12,
+      "user_steps": 6
+    },
+    {
+      "id": 31,
+      "timestamp": 1793674550,
+      "result": "Win",
+      "total_steps": 11,
+      "user_steps": 6
+    },
+    {
+      "id": 32,
+      "timestamp": 1793674573,
+      "result": "Lost",
+      "total_steps": 12,
+      "user_steps": 6
+    },
+    {
+      "id": 33,
+      "timestamp": 1793674590,
+      "result": "Lost",
+      "total_steps": 12,
+      "user_steps": 6
+    },
+    {
+      "id": 34,
+      "timestamp": 1793674609,
+      "result": "Lost",
+      "total_steps": 10,
+      "user_steps": 5
+    },
+    {
+      "id": 35,
+      "timestamp": 1793674671,
+      "result": "Win",
+      "total_steps": 23,
+      "user_steps": 12
+    },
+    {
+      "id": 36,
+      "timestamp": 1793855368,
+      "result": "Lost",
+      "total_steps": 8,
+      "user_steps": 4
+    },
+    {
+      "id": 37,
+      "timestamp": 1793855377,
+      "result": "Unfinished",
+      "total_steps": 4,
+      "user_steps": 2
+    },
+    {
+      "id": 38,
+      "timestamp": 1793855392,
+      "result": "Lost",
+      "total_steps": 8,
+      "user_steps": 4
+    },
+    {
+      "id": 39,
+      "timestamp": 1793855412,
+      "result": "Win",
+      "total_steps": 11,
+      "user_steps": 6
+    },
+    {
+      "id": 40,
+      "timestamp": 1793855440,
+      "result": "Win",
+      "total_steps": 13,
+      "user_steps": 7
+    },
+    {
+      "id": 41,
+      "timestamp": 1793855480,
+      "result": "Lost",
+      "total_steps": 20,
+      "user_steps": 10
+    },
+    {
+      "id": 42,
+      "timestamp": 1794457188,
+      "result": "Lost",
+      "total_steps": 8,
+      "user_steps": 4
+    },
+    {
+      "id": 43,
+      "timestamp": 1794457321,
+      "result": "Lost",
+      "total_steps": 12,
+      "user_steps": 6
+    },
+    {
+      "id": 44,
+      "timestamp": 1794457336,
+      "result": "Lost",
+      "total_steps": 12,
+      "user_steps": 6
+    },
+    {
+      "id": 45,
+      "timestamp": 1794457361,
+      "result": "Win",
+      "total_steps": 13,
+      "user_steps": 7
+    },
+    {
+      "id": 46,
+      "timestamp": 1794457569,
+      "result": "Lost",
+      "total_steps": 14,
+      "user_steps": 7
+    },
+    {
+      "id": 47,
+      "timestamp": 1794457586,
+      "result": "Lost",
+      "total_steps": 10,
+      "user_steps": 5
+    },
+    {
+      "id": 48,
+      "timestamp": 1794457625,
+      "result": "Lost",
+      "total_steps": 14,
+      "user_steps": 7
+    },
+    {
+      "id": 49,
+      "timestamp": 1794457673,
+      "result": "Win",
+      "total_steps": 17,
+      "user_steps": 9
+    }
+  ],
+  "total_matches": 49,
+  "finished": 44,
+  "unfinished": 5,
+  "wins": 16,
+  "ties": 0,
+  "losses": 28
+}

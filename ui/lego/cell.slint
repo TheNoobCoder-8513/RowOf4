@@ -1,4 +1,4 @@
-import { TSlot, TBall } from "../model.slint";
+import { TSlot, TBall, TFinish } from "../model.slint";
 import { State } from "../state.slint";
 import { Theme } from "../theme.slint";
 
@@ -16,9 +16,7 @@ export component Cell inherits Rectangle {
 
     touch := TouchArea {
         clicked => {
-            if slot.ball == TBall.None {
-                slot.ball = State.turn;
-                State.updateTurn();
+            if State.turn == TBall.User && State.finish == TFinish.None && slot.ball == TBall.None {
                 root.clicked();
             }
         }
@@ -51,8 +49,8 @@ export component Cell inherits Rectangle {
         finished when root.slot.active && root.slot.ball != TBall.None: {
             border-color: root.slot.ball == TBall.User ? Theme.cell.user.active : Theme.cell.pc.active;
         }
-        partial when touch.has-hover && root.slot.ball == TBall.None: {
-            cell.background: State.turn == TBall.User ? Theme.cell.user.partial : Theme.cell.pc.partial;
+        partial when touch.has-hover && root.slot.ball == TBall.None && State.turn == TBall.User && State.finish == TFinish.None: {
+            cell.background: Theme.cell.user.partial;
         }
     ]
 }

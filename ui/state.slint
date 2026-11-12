@@ -18,23 +18,26 @@ export global State {
         root.turn = root.turn == TBall.User ? TBall.CPU : TBall.User;
     }
 
-    in-out property <{ row: int, col: int }> last-move: { row: 1, col: 1 };
+    in-out property <{ row: int, col: int }> last-move: { row: -1, col: -1 };
     public function updateLastMove(rin: int, cin: int) {
         root.last-move.row = rin;
         root.last-move.col = cin;
     }
 
+    in-out property <int> step-count: 0;
+
     in property <TStat> stat:  {
-        match: 86,
-        finished: 42,
-        unfinished: 44,
-        win: 31,
-        tie: 11,
-        lost: 44,
+        match: 0,
+        finished: 0,
+        unfinished: 0,
+        win: 0,
+        tie: 0,
+        lost: 0,
     };
 
-    in property <TFinish> finish;
+    in-out property <TFinish> finish: TFinish.None;
 
+    callback cell-clicked(int, int);
     callback reset-board();
     in-out property <TBoard> board: {
         board: [

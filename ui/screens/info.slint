@@ -79,11 +79,11 @@ component Info-None inherits Rectangle {
                         horizontal-stretch: 1;
 
                         clicked => {
-                            if (in == 0) {
-                                State.help-screen = THelpScreen.Interface;
-                            } else {
-                                State.help-screen = THelpScreen.About;
-                            }
+                            // if (in == 0) {
+                            //     State.help-screen = THelpScreen.Interface;
+                            // } else {
+                            //     State.help-screen = THelpScreen.About;
+                            // }
                         }
                     }
                 }
@@ -253,8 +253,6 @@ export component Info inherits Rectangle {
     border-width: 5px;
     border-radius: 20px;
     border-color: Theme.board.base;
-
-    width: self.height;
 
     if State.help-screen == THelpScreen.None: Info-None { }
     if State.help-screen == THelpScreen.Interface: Info-Interface { }
